@@ -9,7 +9,7 @@ const productsSchema = mongoose.Schema({
   features: [{
     feature: String,
     value: String
-    },
+  },
   ],
   styles: [{
     style_id: Number NOT NULL,
@@ -20,15 +20,15 @@ const productsSchema = mongoose.Schema({
     photos: [{
       thumbnail_url: String,
       url: String
-      },
-    ]
+    },
+    ],
     skus: {
       sku_id: {
         quantity: Number,
         size: String,
-        }.
       }.
-    },
+    }.
+  },
   ],
   related_products: [Number]
 });
