@@ -29,6 +29,12 @@ CREATE TABLE features (
  value VARCHAR(50) NOT NULL
 );
 
+CREATE TABLE related_products (
+ id SERIAL PRIMARY KEY,
+ current_product_id INTEGER NOT NULL,
+ related_product_id INTEGER NOT NULL
+);
+
 
 CREATE TABLE styles (
  id SERIAL PRIMARY KEY,
@@ -38,6 +44,7 @@ CREATE TABLE styles (
  original_price INTEGER NOT NULL,
  default_style BOOLEAN NOT NULL
 );
+
 
 
 CREATE TABLE photos (
@@ -57,15 +64,8 @@ CREATE TABLE skus (
 
 
 
-CREATE TABLE related_products (
- id SERIAL PRIMARY KEY,
- current_product_id INTEGER NOT NULL,
- related_product_id INTEGER NOT NULL
-);
-
-
 ALTER TABLE features ADD FOREIGN KEY (product_id) REFERENCES products (id);
 ALTER TABLE styles ADD FOREIGN KEY (product_id) REFERENCES products (id);
+ALTER TABLE related_products ADD FOREIGN KEY (current_product_id) REFERENCES products (id);
 ALTER TABLE photos ADD FOREIGN KEY (style_id) REFERENCES styles (id);
 ALTER TABLE skus ADD FOREIGN KEY (style_id) REFERENCES styles (id);
-ALTER TABLE related_products ADD FOREIGN KEY (current_product_id) REFERENCES products (id);
