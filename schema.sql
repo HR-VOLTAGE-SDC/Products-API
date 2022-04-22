@@ -1,73 +1,71 @@
-DROP TABLE IF EXISTS products;
+DROP DATABASE IF EXISTS product_api;
+DROP DATABASE IF EXISTS products_api;
+
+CREATE DATABASE products_api;
+
+\c products_api;
+
+DROP TABLE IF EXISTS features CASCADE;
+DROP TABLE IF EXISTS related_products CASCADE;
+DROP TABLE IF EXISTS photos CASCADE;
+DROP TABLE IF EXISTS skus CASCADE;
+DROP TABLE IF EXISTS styles CASCADE;
+DROP TABLE IF EXISTS products CASCADE;
 
 CREATE TABLE products (
- product_id SERIAL NOT NULL,
- name VARCHAR(128) NOT NULL,
- slogan VARCHAR(1024) NOT NULL,
- description VARCHAR(1024) NOT NULL,
- category VARCHAR(128) NOT NULL,
- default_price INTEGER NOT NULL,
- PRIMARY KEY (product_id)
+ id SERIAL PRIMARY KEY,
+ name VARCHAR(100) NOT NULL,
+ slogan VARCHAR(1000) NOT NULL,
+ description VARCHAR(1000) NOT NULL,
+ category VARCHAR(100) NOT NULL,
+ default_price INTEGER NOT NULL
 );
 
-
-DROP TABLE IF EXISTS features;
 
 CREATE TABLE features (
- feature_id SERIAL NOT NULL,
+ id SERIAL PRIMARY KEY,
  product_id INTEGER NOT NULL,
- feature VARCHAR(128) NOT NULL,
- value VARCHAR(128) NOT NULL,
- PRIMARY KEY (feature_id)
+ feature VARCHAR(50) NOT NULL,
+ value VARCHAR(50) NOT NULL
 );
 
-
-DROP TABLE IF EXISTS styles;
 
 CREATE TABLE styles (
- style_id SERIAL NOT NULL,
+ id SERIAL PRIMARY KEY,
  product_id INTEGER NOT NULL,
- name VARCHAR(128) NOT NULL,
+ name VARCHAR(100) NOT NULL,
+ sale_price VARCHAR(10) NULL,
  original_price INTEGER NOT NULL,
- sale_price INTEGER,
- default? BOOLEAN NOT NULL DEFAULT FALSE,
- PRIMARY KEY (style_id)
+ default_style BOOLEAN NOT NULL
 );
 
-
-DROP TABLE IF EXISTS photos;
 
 CREATE TABLE photos (
- photo_id SERIAL NOT NULL,
+ id SERIAL PRIMARY KEY,
  style_id INTEGER NOT NULL,
- thumbnail_url VARCHAR(1024) NOT NULL,
- url VARCHAR(1024) NOT NULL,
- PRIMARY KEY (photo_id)
+ url VARCHAR(1000) NOT NULL,
+ thumbnail_url TEXT NOT NULL
 );
 
-
-DROP TABLE IF EXISTS skus;
 
 CREATE TABLE skus (
- sku_id SERIAL NOT NULL,
+ id SERIAL PRIMARY KEY,
  style_id INTEGER NOT NULL,
- quantity INTEGER NOT NULL,
  size VARCHAR(10) NOT NULL,
- PRIMARY KEY (sku_id)
+ quantity INTEGER NOT NULL
 );
 
 
-DROP TABLE IF EXISTS related_products;
 
 CREATE TABLE related_products (
- related_product_id SERIAL NOT NULL,
- product_id INTEGER NOT NULL,
- PRIMARY KEY (related_product_id)
+ id SERIAL PRIMARY KEY,
+ current_product_id INTEGER NOT NULL,
+ related_product_id INTEGER NOT NULL
 );
 
 
-ALTER TABLE styles ADD FOREIGN KEY (product_id) REFERENCES products (product_id);
-ALTER TABLE features ADD FOREIGN KEY (product_id) REFERENCES products (product_id);
-ALTER TABLE related_products ADD FOREIGN KEY (product_id) REFERENCES products (product_id);
-ALTER TABLE photos ADD FOREIGN KEY (style_id) REFERENCES styles (style_id);
-ALTER TABLE skus ADD FOREIGN KEY (style_id) REFERENCES styles (style_id);
+ALTER TABLE features ADD FOREIGN KEY (product_id) REFERENCES products (id);
+ALTER TABLE styles ADD FOREIGN KEY (product_id) REFERENCES products (id);
+ALTER TABLE photos ADD FOREIGN KEY (style_id) REFERENCES styles (id);
+ALTER TABLE skus ADD FOREIGN KEY (style_id) REFERENCES styles (id);
+ALTER TABLE related_products ADD FOREIGN KEY (current_product_id) REFERENCES products (id);
