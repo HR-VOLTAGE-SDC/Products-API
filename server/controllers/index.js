@@ -1,3 +1,4 @@
+require('dotdenv').config()
 const models = require('../models');
 
 module.exports = {
