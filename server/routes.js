@@ -8,3 +8,5 @@ router.get('products/:id', controller.product.get);
 router.get('/products/:id/styles', controller.styles.get);
 
 router.get('/products/:id/related', controller.related.get);
+
+module.exports = router;
