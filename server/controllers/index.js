@@ -13,7 +13,7 @@ module.exports = {
 
   getProduct: async (req, res) => {
     try {
-      let data = await models.getProduct(req.query)
+      let data = await models.getProduct(req.query) // product id #
       await res.status(200).json(data)
     } catch (e) {
       res.sendStatus(500).send(`ERROR: ${e}`)
@@ -22,7 +22,7 @@ module.exports = {
 
   getStyles: async (req, res) => {
     try {
-      let data = await models.getStyles(req.query)
+      let data = await models.getStyles(req.query) // style number
       await res.status(200).json(data)
     } catch (e) {
       res.sendStatus(500).send(`ERROR: ${e}`)
