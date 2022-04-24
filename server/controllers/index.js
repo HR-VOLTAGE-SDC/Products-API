@@ -1,4 +1,3 @@
-require('dotdenv').config()
 const models = require('../models');
 
 module.exports = {
@@ -10,7 +9,7 @@ module.exports = {
     } catch (e) {
       res.sendStatus(500).send(`ERROR: ${e}`)
     }
-  }
+  },
 
   getProduct: async (req, res) => {
     try {
@@ -19,7 +18,7 @@ module.exports = {
     } catch (e) {
       res.sendStatus(500).send(`ERROR: ${e}`)
     }
-  }
+  },
 
   getStyles: async (req, res) => {
     try {
@@ -28,7 +27,7 @@ module.exports = {
     } catch (e) {
       res.sendStatus(500).send(`ERROR: ${e}`)
     }
-  }
+  },
 
   getRelated: async (req, res) => {
     try {
@@ -38,4 +37,5 @@ module.exports = {
       res.sendStatus(500).send(`ERROR: ${e}`)
     }
   }
+
 }
