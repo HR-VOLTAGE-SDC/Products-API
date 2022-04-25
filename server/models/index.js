@@ -1,51 +1,86 @@
-const db = require('../db');
+const pool = require('../db');
 
 module.exports = {
-  getAllProducts: async (req) => {
-    let queryString = 'SELECT * FROM products';
-    await db.query(queryString, (err, results) => {
-      callback(err, results);
-    });
+  getAllProducts: (req) => {
+    const queryString = 'SELECT * FROM products';
+    let products = pool.query(queryString);
+    return products;
   },
 
-  getProduct: async (req) => {
-    const product_id = req.products.id;
-    const product_info = {
-      name: req.products.name,
-      slogan: req.products.slogan,
-      description: req.products.description,
-      category: req.products.category,
-      default_price: req.products.default_price
-    };
-    const features = {
-      id: req.features.id,
-      product_id: product_id,
-      feature: req.features.id,
-      value: req.features.value
-    }
+  getProduct: async (productId) => {
+    const queryString = `
+    SELECT JSON_BUILD_OBJECT(
+        'id', id,
+        'name', name,
+        'slogan', slogan,
+        'description', description,
+        'category', category,
+        'default_price', default_price,
+        'features', (
+          SELECT COALESCE(JSON_AGG(features), '[]'::json)
+          FROM (
+            SELECT feature, value
+            FROM features
+            WHERE product_id = p.id
+          ) AS features
+        )
+      ) AS product
+    FROM products p WHERE id=${productId}`;
+    let product = await pool.query(queryString);
+    return product;
+  },
 
-    let queryString = 'SELECT products information, and features for a given product id';
+  getStyles: async (productId) => {
+    const queryString = `
+    SELECT JSON_BUILD_OBJECT(
+      'product_id', id,
+      'styles', (
+        SELECT COALESCE(JSON_AGG(styles), '[]'::json)
+        FROM (
+          SELECT
+          id AS style_id,
+          name,
+          original_price,
+          sale_price,
+          default_style,
+          (
+            SELECT COALESCE(JSON_AGG(photos), '[]'::json) AS photos
+            FROM (
+              SELECT
+              thumbnail_url,
+              url
+              FROM photos
+              WHERE style_id = styles.id
+            ) AS photos
+          ),
+          (
+            SELECT COALESCE(JSON_AGG(skus), '[]'::json) AS skus
+            FROM (
+              SELECT
+              size,
+              quantity
+              FROM skus
+              WHERE style_id = styles.id
+            ) AS skus
+          )
+          FROM styles
+          WHERE product_id = p.id
+        ) AS styles
+      )
+    ) AS product
+    FROM products p WHERE id=${productId}`;
 
-    await db.query(queryString, (err, results) => {
-      callback(err,results);
-    })
+    let styles = await pool.query(queryString);
+    return styles;
+  },
+
+  getRelated: async (productId) => {
+    const queryString = `
+    SELECT ARRAY_AGG(related_product_id) AS related
+    FROM related_products
+    WHERE related_products.current_product_id = ${productId}`;
+
+    let related_products = await pool.query(queryString);
+    return related_products;
   }
-
-  getStyles: async (req) => {
-    let queryString = 'SELECT all styles for given product id';
-
-    await db.query(queryString, (err, results) => {
-      callback(err, results)
-    })
-  }
-
-  getRelated: async (callback) => {
-    let queryString = 'SELECT all related product ids for a given product id'
-
-    await db.query(queryString, (err, results) => {
-      callback(err, results)
-    })
-  }
-
-
 }
