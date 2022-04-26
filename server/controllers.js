@@ -1,15 +1,15 @@
-const models = require('../models');
+const models = require('./models');
 
 module.exports = {
   getProducts: async (req, res) => {
     try {
-      const page = req.query.page || 1;
-      const count = req.query.page || 5;
+      const page = req.query.page;
+      const count = req.query.page;
 
       let data = await models.getProducts(page, count);
       await res.send(data.rows);
     } catch (e) {
-      res.sendStatus(500).json(`ERROR: ${e}`)
+      res.json(`ERROR: ${e}`)
     }
   },
 
@@ -18,7 +18,7 @@ module.exports = {
       const productId = req.params.id;
       let data = await models.getProduct(productId) // product id #
 
-      await res.send(data.rows[0].product)
+      await res.json(data.rows[0].product)
     } catch (e) {
       res.send(`ERROR: ${e}`)
     }

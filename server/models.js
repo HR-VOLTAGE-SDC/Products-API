@@ -1,8 +1,8 @@
-const pool = require('../db');
+const pool = require('./db');
 
 module.exports = {
 
-  getProducts: (page, count) => {
+  getProducts: (page = 5, count = 1) => {
     const start = page * count - count + 1;
     const end = page * count;
     const queryString = `SELECT * FROM products WHERE id BETWEEN ${start} and ${end}`;
@@ -33,7 +33,7 @@ module.exports = {
 
   getStyles: async (productId) => {
     const queryString = `
-    SELECT JSON_BUILD_OBJECT(
+    EXPLAIN ANALYZE SELECT JSON_BUILD_OBJECT(
       'product_id', id,
       'styles', (
         SELECT COALESCE(JSON_AGG(styles), '[]'::json)
