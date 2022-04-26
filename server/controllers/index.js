@@ -7,9 +7,9 @@ module.exports = {
       const count = req.query.page || 5;
 
       let data = await models.getProducts(page, count);
-      await res.json(data.rows);
+      await res.send(data.rows);
     } catch (e) {
-      res.sendStatus(500).send(`ERROR: ${e}`)
+      res.sendStatus(500).json(`ERROR: ${e}`)
     }
   },
 
@@ -18,7 +18,7 @@ module.exports = {
       const productId = req.params.id;
       let data = await models.getProduct(productId) // product id #
 
-      await res.json(data.rows[0].product)
+      await res.send(data.rows[0].product)
     } catch (e) {
       res.send(`ERROR: ${e}`)
     }
@@ -28,7 +28,7 @@ module.exports = {
     try {
       const productId = req.params.id;
       let data = await models.getStyles(productId)
-      await res.json(data.rows[0].product.styles)
+      await res.send(data.rows[0].product.styles)
     } catch (e) {
       res.sendStatus(500).send(`ERROR: ${e}`)
     }
@@ -38,7 +38,7 @@ module.exports = {
     try {
       const productId = req.params.id;
       let data = await models.getRelated(productId)
-      await res.json(data.rows[0].related)
+      await res.send(data.rows[0].related)
     } catch (e) {
       res.sendStatus(500).send(`ERROR: ${e}`)
     }
