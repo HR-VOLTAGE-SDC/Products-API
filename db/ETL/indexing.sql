@@ -1,4 +1,4 @@
-\c productss_api;
+\c products_api;
 
 \CREATE INDEX product_features ON features (product_id);
 

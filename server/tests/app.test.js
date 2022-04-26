@@ -3,7 +3,7 @@ const app = require('./../app');
 
 
 describe('GET /products', function() {
-  it('responds with status of 200', async function() {
+  it('responds with a status of 200 for products', async function() {
     const response = await request(app)
       .get('/products')
       .set('Accept', 'application/json')
@@ -12,7 +12,7 @@ describe('GET /products', function() {
 });
 
 describe('GET /products/:id', function() {
-  it('responds with product information for a product', async function() {
+  it('responds with a status of 200 for a product', async function() {
     const response = await request(app)
       .get('/products/:id')
       .set('Accept', 'application/json')
@@ -21,7 +21,7 @@ describe('GET /products/:id', function() {
 });
 
 describe('GET /products/:id/styles', function() {
-  it('responds with all styles for a product', async function() {
+  it('responds with a status of 200 for styles', async function() {
     const response = await request(app)
       .get('/products/:id/styles')
       .set('Accept', 'application/json')
@@ -30,7 +30,7 @@ describe('GET /products/:id/styles', function() {
 });
 
 describe('GET /products/:id/related', function() {
-  it('responds with all related products for a product', async function() {
+  it('responds with a status of 200 for related products', async function() {
     const response = await request(app)
       .get('/products/:id/styles')
       .set('Accept', 'application/json')
