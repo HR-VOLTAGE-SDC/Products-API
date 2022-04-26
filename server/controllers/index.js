@@ -20,7 +20,7 @@ module.exports = {
 
       await res.json(data.rows[0].product)
     } catch (e) {
-      res.json(`ERROR: ${e}`)
+      res.send(`ERROR: ${e}`)
     }
   },
 
@@ -30,7 +30,7 @@ module.exports = {
       let data = await models.getStyles(productId)
       await res.json(data.rows[0].product.styles)
     } catch (e) {
-      res.send(`ERROR: ${e}`)
+      res.sendStatus(500).send(`ERROR: ${e}`)
     }
   },
 
@@ -40,7 +40,7 @@ module.exports = {
       let data = await models.getRelated(productId)
       await res.json(data.rows[0].related)
     } catch (e) {
-      res.send(`ERROR: ${e}`)
+      res.sendStatus(500).send(`ERROR: ${e}`)
     }
   }
 }

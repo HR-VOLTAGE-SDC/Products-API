@@ -5,7 +5,6 @@ const PORT = 5000;
 const router = require('./routes');
 
 const morgan = require('morgan');
-const pool = require("./db/index");
 
 
 // set port
