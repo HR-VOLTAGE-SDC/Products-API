@@ -1,10 +1,13 @@
 const models = require('../models');
 
 module.exports = {
-  getAllProducts: async (req, res) => {
+  getProducts: async (req, res) => {
     try {
-      let data = await models.getAllProducts(req.query)
-      await res.status(200).json(data)
+      const page = req.query.page || 1;
+      const count = req.query.page || 5;
+
+      let data = await models.getProducts(page, count);
+      await res.json(data.rows);
     } catch (e) {
       res.sendStatus(500).send(`ERROR: ${e}`)
     }
@@ -15,7 +18,7 @@ module.exports = {
       const productId = req.params.id;
       let data = await models.getProduct(productId) // product id #
 
-      await res.json(data)
+      await res.json(data.rows[0].product)
     } catch (e) {
       res.json(`ERROR: ${e}`)
     }
@@ -25,7 +28,7 @@ module.exports = {
     try {
       const productId = req.params.id;
       let data = await models.getStyles(productId)
-      await res.json(data)
+      await res.json(data.rows[0].product.styles)
     } catch (e) {
       res.send(`ERROR: ${e}`)
     }
@@ -35,7 +38,7 @@ module.exports = {
     try {
       const productId = req.params.id;
       let data = await models.getRelated(productId)
-      await res.json(data)
+      await res.json(data.rows[0].related)
     } catch (e) {
       res.send(`ERROR: ${e}`)
     }

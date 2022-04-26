@@ -19,6 +19,10 @@ app.use(express.json());
 app.use('', router);
 
 
-app.listen(5000, () => {
-  console.log('server is listening on port 5000')
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(5000, () => {
+    console.log('server is listening on port 5000')
+  });
+}
+
+module.exports = app;

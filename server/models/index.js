@@ -1,10 +1,12 @@
 const pool = require('../db');
 
 module.exports = {
-  getAllProducts: (req) => {
-    const queryString = 'SELECT * FROM products';
-    let products = pool.query(queryString);
-    return products;
+
+  getProducts: (page, count) => {
+    const start = page * count - count + 1;
+    const end = page * count;
+    const queryString = `SELECT * FROM products WHERE id BETWEEN ${start} and ${end}`;
+    return pool.query(queryString);
   },
 
   getProduct: async (productId) => {
@@ -26,8 +28,7 @@ module.exports = {
         )
       ) AS product
     FROM products p WHERE id=${productId}`;
-    let product = await pool.query(queryString);
-    return product;
+    return pool.query(queryString);
   },
 
   getStyles: async (productId) => {
