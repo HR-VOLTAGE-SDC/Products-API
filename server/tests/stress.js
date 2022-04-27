@@ -7,26 +7,19 @@ export let options = {
   stages: [
     { duration: '5s', target: 100 },
     { duration: '25s', target: 100 },
-    { duration: '5s', target: 250 },
-    { duration: '25s', target: 250 },
-    { duration: '5s', target: 500 },
-    { duration: '25s', target: 500 },
-    { duration: '5s', target: 1000 },
-    { duration: '25s', target: 1000 },
+    { duration: '5s', target: 200 },
+    { duration: '25s', target: 200 },
+    { duration: '5s', target: 300 },
+    { duration: '25s', target: 300 },
+    { duration: '5s', target: 400 },
+    { duration: '25s', target: 400 },
     { duration: '15s', target: 0 } // scale down. Recover stage.
   ]
 };
 
-const BASE_URL = 'http://localhost:5000/products';
 const productId = Math.floor(Math.random() * (1000011 - 900009 +1) + 900009)
 
-
 export default () => {
-  http.batch([
-    ['GET', `${BASE_URL}`],
-    ['GET', `${BASE_URL}/${productId}`],
-    ['GET', `${BASE_URL}/${productId}/styles`],
-    ['GET', `${BASE_URL}/${productId}/related`]
-  ]);
+  http.get(`http://localhost:5000/products/${productId}/styles`)
   sleep(1);
 };

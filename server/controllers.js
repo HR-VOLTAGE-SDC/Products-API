@@ -3,10 +3,7 @@ const models = require('./models');
 module.exports = {
   getProducts: async (req, res) => {
     try {
-      const page = req.query.page;
-      const count = req.query.page;
-
-      let data = await models.getProducts(page, count);
+      let data = await models.getProducts(req.query.page, req.query.count);
       await res.send(data.rows);
     } catch (e) {
       res.json(`ERROR: ${e}`)
@@ -30,7 +27,7 @@ module.exports = {
       let data = await models.getStyles(productId)
       await res.send(data.rows[0].product.styles)
     } catch (e) {
-      res.sendStatus(500).send(`ERROR: ${e}`)
+      res.send(`ERROR: ${e}`)
     }
   },
 
