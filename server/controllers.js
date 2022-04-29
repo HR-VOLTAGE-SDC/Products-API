@@ -44,7 +44,7 @@ module.exports = {
 
   getLoader: (req, res) => {
     try {
-     res.send(verification);
+     return verification;
     } catch (e) {
       res.sendStatus(500).send(`ERROR: ${e}`)
     }
