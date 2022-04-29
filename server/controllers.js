@@ -1,4 +1,5 @@
 const models = require('./models');
+const verification = require('./../loaderio-e81d1627d16a741b2666b317f8845bcf.txt');
 
 module.exports = {
   getProducts: async (req, res) => {
@@ -36,6 +37,14 @@ module.exports = {
       const productId = req.params.id;
       let data = await models.getRelated(productId)
       await res.send(data.rows[0].related)
+    } catch (e) {
+      res.sendStatus(500).send(`ERROR: ${e}`)
+    }
+  },
+
+  getLoader: (req, res) => {
+    try {
+     res.send(verification);
     } catch (e) {
       res.sendStatus(500).send(`ERROR: ${e}`)
     }
