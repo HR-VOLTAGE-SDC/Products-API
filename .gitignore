@@ -4,3 +4,4 @@ Load Balancer.pem
 Server.pem
 products_api.sql.zip
 Postgres.pem
+.DS_Store
