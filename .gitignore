@@ -1,2 +1,6 @@
 node_modules
 config.js
+Load Balancer.pem
+Server.pem
+products_api.sql.zip
+Postgres.pem
