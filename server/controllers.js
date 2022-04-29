@@ -1,5 +1,4 @@
 const models = require('./models');
-const verification = require('./../loaderio-e81d1627d16a741b2666b317f8845bcf.txt');
 
 module.exports = {
   getProducts: async (req, res) => {
@@ -44,7 +43,7 @@ module.exports = {
 
   getLoader: (req, res) => {
     try {
-     return verification;
+     res.send("loaderio-e81d1627d16a741b2666b317f8845bcf");
     } catch (e) {
       res.sendStatus(500).send(`ERROR: ${e}`)
     }
