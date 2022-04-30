@@ -43,7 +43,7 @@ module.exports = {
 
   getLoader: (req, res) => {
     try {
-     res.send("loaderio-e81d1627d16a741b2666b317f8845bcf");
+     res.send("loaderio-66f28c68e03209605324a77fe6714e8b");
     } catch (e) {
       res.sendStatus(500).send(`ERROR: ${e}`)
     }
