@@ -6,7 +6,7 @@ module.exports = {
       let data = await models.getProducts(req.query.page, req.query.count);
       await res.send(data.rows);
     } catch (e) {
-      res.json(`ERROR: ${e}`)
+      res.send(`ERROR: ${e}`)
     }
   },
 
@@ -37,7 +37,7 @@ module.exports = {
       let data = await models.getRelated(productId)
       await res.send(data.rows[0].related)
     } catch (e) {
-      res.sendStatus(500).send(`ERROR: ${e}`)
+      res.send(`ERROR: ${e}`)
     }
   },
 
@@ -45,7 +45,7 @@ module.exports = {
     try {
      res.send("loaderio-66f28c68e03209605324a77fe6714e8b");
     } catch (e) {
-      res.sendStatus(500).send(`ERROR: ${e}`)
+      res.send(`ERROR: ${e}`)
     }
   }
 }
