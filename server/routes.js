@@ -9,6 +9,6 @@ router.get('/products/:id/styles', controller.getStyles);
 
 router.get('/products/:id/related', controller.getRelated);
 
-router.get('/loaderio-e81d1627d16a741b2666b317f8845bcf.txt', controller.getLoader);
+router.get('/loaderio-66f28c68e03209605324a77fe6714e8b.txt', controller.getLoader);
 
 module.exports = router;
