@@ -1,9 +1,8 @@
 const express = require("express");
 const db = require('./db/index');
 const app = express();
-const PORT = 5000;
+const PORT = 3000;
 const router = require('./routes');
-
 const morgan = require('morgan');
 
 
@@ -19,8 +18,8 @@ app.use('', router);
 
 
 if (process.env.NODE_ENV !== 'test') {
-  app.listen(5000, () => {
-    console.log('server is listening on port 5000')
+  app.listen(PORT, () => {
+    console.log('server is listening on port 3000')
   });
 }
 
