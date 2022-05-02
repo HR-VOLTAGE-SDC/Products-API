@@ -8,7 +8,7 @@ The database schema are contained in `/db`
 
 The node server is contained entirely in `/server` and enters on `app.js`
 
-`npm test` runs the tests inside of the `/test` folder with jest
+`npm run test` runs the tests inside of the `/server/tests` folder with jest
 
 ## Install
 
