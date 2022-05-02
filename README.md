@@ -4,9 +4,9 @@
 
 This is a node/express application that provides a REST API for the Atelier ecommerce frontend.
 
-The database schema are contained in `/etl`
+The database schema are contained in `/db`
 
-The node server is contained entirely in `/server` and enters on `index.js`
+The node server is contained entirely in `/server` and enters on `app.js`
 
 `npm test` runs the tests inside of the `/test` folder with jest
 
@@ -23,7 +23,7 @@ copy `example.js` to `config.js` and configure the variables within.
 ## Run the App
 
 ```
-npm start
+npm run server
 ```
 
 ## Run the Tests
