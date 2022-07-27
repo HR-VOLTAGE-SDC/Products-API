@@ -1,4 +1,3 @@
-DROP DATABASE IF EXISTS product_api;
 DROP DATABASE IF EXISTS products_api;
 
 CREATE DATABASE products_api;
